@@ -85,7 +85,7 @@ class _$TodoDatabase extends TodoDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Todo` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `body` TEXT NOT NULL, `createdAt` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `Todo` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `body` TEXT NOT NULL, `createdAt` TEXT NOT NULL, `updateAt` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -111,7 +111,8 @@ class _$TodoDao extends TodoDao {
                   'id': item.id,
                   'title': item.title,
                   'body': item.body,
-                  'createdAt': item.createdAt
+                  'createdAt': item.createdAt,
+                  'updateAt': item.updateAt
                 },
             changeListener),
         _todoUpdateAdapter = UpdateAdapter(
@@ -122,7 +123,8 @@ class _$TodoDao extends TodoDao {
                   'id': item.id,
                   'title': item.title,
                   'body': item.body,
-                  'createdAt': item.createdAt
+                  'createdAt': item.createdAt,
+                  'updateAt': item.updateAt
                 },
             changeListener),
         _todoDeletionAdapter = DeletionAdapter(
@@ -133,7 +135,8 @@ class _$TodoDao extends TodoDao {
                   'id': item.id,
                   'title': item.title,
                   'body': item.body,
-                  'createdAt': item.createdAt
+                  'createdAt': item.createdAt,
+                  'updateAt': item.updateAt
                 },
             changeListener);
 
@@ -151,44 +154,47 @@ class _$TodoDao extends TodoDao {
 
   @override
   Future<List<Todo>> findAllTodos() async {
-    return _queryAdapter.queryList('SELECT * FROM Todo',
+    return _queryAdapter.queryList('select * from todo',
         mapper: (Map<String, Object?> row) => Todo(
             row['id'] as int,
             row['title'] as String,
             row['body'] as String,
-            row['createdAt'] as String));
+            row['createdAt'] as String,
+            row['updateAt'] as String));
   }
 
   @override
   Future<Todo?> getMaxId() async {
-    return _queryAdapter.query('SELECT * FROM Todo order by id desc limit 1',
+    return _queryAdapter.query('select * from todo order by id desc limit 1',
         mapper: (Map<String, Object?> row) => Todo(
             row['id'] as int,
             row['title'] as String,
             row['body'] as String,
-            row['createdAt'] as String));
+            row['createdAt'] as String,
+            row['updateAt'] as String));
   }
 
   @override
   Stream<List<Todo?>> streamedData() {
-    return _queryAdapter.queryListStream('SELECT * FROM Todo order by id desc',
+    return _queryAdapter.queryListStream('select * from todo order by id desc',
         mapper: (Map<String, Object?> row) => Todo(
             row['id'] as int,
             row['title'] as String,
             row['body'] as String,
-            row['createdAt'] as String),
-        queryableName: 'Todo',
+            row['createdAt'] as String,
+            row['updateAt'] as String),
+        queryableName: 'todo',
         isView: false);
   }
 
   @override
   Future<void> deleteTodo(int id) async {
     await _queryAdapter
-        .queryNoReturn('SELECT * From Todo where id = ?1', arguments: [id]);
+        .queryNoReturn('delete from todo where id = ?1', arguments: [id]);
   }
 
   @override
-  Future<void> insertPerson(Todo todo) async {
+  Future<void> insertTodo(Todo todo) async {
     await _todoInsertionAdapter.insert(todo, OnConflictStrategy.abort);
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:relational_database_flutter/pages/home_page.dart';
+import 'package:relational_database_flutter/pages/todos_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(homeTitle: "Home Page"),
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.grey.shade50
+        ),
+        scaffoldBackgroundColor: Colors.grey.shade50
+      ),
+      home: TodosPage(),
     );
   }
 }

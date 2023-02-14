@@ -13,13 +13,26 @@ dependencies:
 
   floor: ^1.4.1
 
+  retrofit: ^3.3.1
+
+  bloc_concurrency: ^0.2.0
+
+  flutter_bloc: ^8.0.1
+
+  get_it: ^7.2.0
+
+  shimmer: ^2.0.0
 
   cupertino_icons: ^1.0.2
+
+  # date time picker
   intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  retrofit_generator: any
   floor_generator: ^1.4.1
   build_runner: ^2.1.2
 

@@ -1,5 +1,3 @@
-// entity/todo_entity.dart
-
 import 'package:floor/floor.dart';
 
 @entity
@@ -9,9 +7,10 @@ class Todo {
   final String title;
   final String body;
   final String createdAt;
+  final String updateAt;
 
   @ignore
   bool isSelected = false;
 
-  Todo(this.id, this.title, this.body, this.createdAt);
+  Todo(this.id, this.title, this.body, this.createdAt, this.updateAt);
 }
