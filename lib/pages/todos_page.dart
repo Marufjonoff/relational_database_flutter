@@ -6,7 +6,7 @@ import 'package:relational_database_flutter/database/entity/todo_entity.dart';
 import 'package:relational_database_flutter/pages/add_todo_page.dart';
 
 class TodosPage extends StatefulWidget {
-  TodosPage({Key? key}) : super(key: key);
+  const TodosPage({Key? key}) : super(key: key);
 
   @override
   State<TodosPage> createState() => _TodosPageState();
