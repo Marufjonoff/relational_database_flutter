@@ -50,11 +50,34 @@ class _TodosPageState extends State<TodosPage> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              snapshot.data![snapshot.data!.length - index - 1]!.title, 
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                            
+                            Text(snapshot.data![snapshot.data!.length - index - 1]!.body, 
+                                style: const TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)
+                            ),
+                            
+                            const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("${snapshot.data![snapshot.data!.length - index - 1]!.id.toString()})", overflow: TextOverflow.ellipsis,),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Created:  ${(snapshot.data![snapshot.data!.length - index - 1]!.createdAt).substring(11)}",
+                                      style: const TextStyle(color: Colors.black),
+                                    ),
+                                    
+                                    Text(
+                                      "Updated: ${(snapshot.data![snapshot.data!.length - index - 1]!.updateAt).substring(11)}",
+                                      style: const TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
 
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -85,27 +108,6 @@ class _TodosPageState extends State<TodosPage> {
                                   ],
                                 ),
                               ],
-                            ),
-
-                            ListTile(
-                              trailing: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Cr: ${snapshot.data![snapshot.data!.length - index - 1]!.createdAt}",
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                  Text(
-                                    "Up: ${snapshot.data![snapshot.data!.length - index - 1]!.updateAt}",
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                              title: Text(
-                                snapshot.data![snapshot.data!.length - index - 1]!.title, style: const TextStyle(color: Colors.black),
-                              ),
-                              subtitle: Text("\n${snapshot.data![snapshot.data!.length - index - 1]!.body}", style: const TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
                             ),
                           ],
                         ),
